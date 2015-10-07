@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ean-eic-checker-service", "ean-eic-checker-service\ean-eic-checker-service.csproj", "{9C554EEC-9CED-4C04-BDA3-93726FF024E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ean-eic-checker-service.Tests", "ean-eic-checker-service.Tests\ean-eic-checker-service.Tests.csproj", "{A15215FC-FF8B-4369-9F54-D65A594D21A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9C554EEC-9CED-4C04-BDA3-93726FF024E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C554EEC-9CED-4C04-BDA3-93726FF024E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C554EEC-9CED-4C04-BDA3-93726FF024E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C554EEC-9CED-4C04-BDA3-93726FF024E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
