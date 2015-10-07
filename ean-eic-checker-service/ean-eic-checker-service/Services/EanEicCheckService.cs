@@ -50,7 +50,7 @@ namespace ean_eic_checker_service.Services {
             }
 
             //EIC prefix
-            if (code.Code.Length >= 2) //TODO: uncomment: && code.Code.Substring(0, 2) == "27")
+            if (code.Code.Length >= 2 && code.Code.Substring(0, 2) == "27")
             {
                 if (code.Code.Length != 16) {
                     return new CheckResult { Description = "EIC code has to have length of 16 characters." };
