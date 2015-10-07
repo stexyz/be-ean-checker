@@ -14,8 +14,7 @@ namespace ean_eic_checker_service.Services {
             }
 
             //EAN prefix
-            String prefix = code.Code.Substring(0, 2);
-            if (prefix == "85")
+            if (code.Code.Length >= 2 && code.Code.Substring(0, 2) == "85")
             {
                 if (code.Code.Length != 18)
                 {
@@ -52,7 +51,7 @@ namespace ean_eic_checker_service.Services {
             }
 
             //EIC prefix
-            if (prefix == "27")
+            if (code.Code.Length >= 2 && code.Code.Substring(0, 2) == "27")
             {
                 if (code.Code.Length != 16) {
                     return new CheckResult { Description = "EIC code has to have length of 16 characters." };
