@@ -7,6 +7,6 @@ namespace ean_eic_checker_service.Models {
             Code = code;
         }
 
-        public String Code { get; set; }
+        public String Code { get; private set; }
     }
 }
