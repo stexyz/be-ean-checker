@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Reflection;
-using System.Resources;
 
-//TODO: add result code (cannot assert on description values! :D)
 namespace ean_eic_checker_service.Models {
     public class CheckResult {
         public CheckResult(CheckResultCode resultCode)
