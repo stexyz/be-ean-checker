@@ -9,7 +9,7 @@ namespace ean_eic_checker_service.Services {
         {
             if (string.IsNullOrEmpty(code.Code))
             {
-                return new CheckResult { Description = "No code supplied." };
+                return new CheckResult(CheckResultCode.NoCodeSupplied);
             }
 
             //EAN prefix
@@ -17,7 +17,7 @@ namespace ean_eic_checker_service.Services {
             {
                 if (code.Code.Length != 18)
                 {
-                    return new CheckResult { Description = "EAN code has to have length of 18 characters."};
+                    return new CheckResult(CheckResultCode.EanInvalidLength);
                 }
 
                 // sum = EAN[0] * 3 + EAN[1] + EAN[2] * 3 + EAN[3] + ... + EAN[16] * 3
@@ -27,7 +27,7 @@ namespace ean_eic_checker_service.Services {
                     int digit = code.Code[i] - '0';
                     if (digit < 0 || digit > 9)
                     {
-                        return new CheckResult{Description ="EAN code is invalid. On the position " + (i+1) + " expecting a digit and got a '" + code.Code[i] + "' character."};
+                        return new CheckResult(CheckResultCode.EanInvalidCharacter);
                     }
                     if (i % 2 == 0)
                     {
@@ -44,16 +44,16 @@ namespace ean_eic_checker_service.Services {
                 int checkSum = Ceiling(sum, 10) - sum;
                 if (lastDigit == checkSum)
                 {
-                    return new CheckResult {Description = "EAN code is ok."};
+                    return new CheckResult(CheckResultCode.EanOk);
                 }
-                return new CheckResult {Description = "EAN code is invalid. The checksum is not correct."};
+                return new CheckResult(CheckResultCode.EanInvalidCheckCharacter);
             }
 
             //EIC prefix
             if (code.Code.Length >= 2 && code.Code.Substring(0, 2) == "27")
             {
                 if (code.Code.Length != 16) {
-                    return new CheckResult { Description = "EIC code has to have length of 16 characters." };
+                    return new CheckResult(CheckResultCode.EicInvalidLength);
                 }
 
                 // EIC check character computation algorithm from page 32-33 from the https://www.entsoe.eu/Documents/EDI/Library/2015-0612_451-n%20EICCode_Data_exchange_implementation_guide_final.pdf
@@ -62,11 +62,7 @@ namespace ean_eic_checker_service.Services {
                     //Step 1&2
                     numericEncodingOfEic = GetNumericEicEncoding(code.Code);
                 } catch (InvalidCharacterInEic) {
-                    return new CheckResult {
-                        Description =
-                            "Invalid character in EIC code [" + code.Code +
-                            "]. Only 0-9, A-Z and '-' are valid characters."
-                    };
+                    return new CheckResult(CheckResultCode.EicInvalidCharacter);
                 }
 
                 //Step 3&4
@@ -78,11 +74,12 @@ namespace ean_eic_checker_service.Services {
                 char checkChar = encodeIntToChar(modulo37);
 
                 if (checkChar == code.Code.Last()) {
-                    return new CheckResult { Description = "EIC code is ok." };
+                    return new CheckResult(CheckResultCode.EicOk);
                 }
-                return new CheckResult { Description = "EIC code is invalid. The checksum is not correct." };
+                return new CheckResult(CheckResultCode.EicInvalidCheckCharacter);
             }
-            return new CheckResult { Description = "Code is not ok, EAN/EIC not recognized (code should start with 85 or 27)"};
+
+            return new CheckResult(CheckResultCode.CodePrefixInvalid);
         }
 
         private char encodeIntToChar(int intToEncode)
@@ -152,7 +149,7 @@ namespace ean_eic_checker_service.Services {
 
         private class InvalidCharacterInEic : Exception{}
     }
-    //TODO: strings to constants
     //TODO: extract a separate method for EIC and for EAN check char computation
-    //TODO: unit-test the check char computation
+    //TODO: deploy the jQuery front-end
+    //TODO: deploy both REST and jQuery to Azure
 }

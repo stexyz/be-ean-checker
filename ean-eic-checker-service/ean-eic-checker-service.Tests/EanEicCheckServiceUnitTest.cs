@@ -1,9 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ean_eic_checker_service.Models;
 using ean_eic_checker_service.Services;
 
 namespace ean_eic_checker_service.Tests {
+    //TODO: test more valid EAN/EIC codes
+
     [TestClass]
     public class EanEicCheckServiceUnitTest
     {
@@ -28,87 +29,86 @@ namespace ean_eic_checker_service.Tests {
         public void SetUp()
         {
             _service = new EanEicCheckService();
-
         }
 
         [TestMethod]
         public void TestValidEan()
         {
             CheckResult res = _service.CheckCode(_validEan);
-            Assert.AreEqual("EAN code is ok.", res.Description);
+            Assert.AreEqual(CheckResultCode.EanOk, res.ResultCode);
         }
 
         [TestMethod]
         public void TestValidEic() {
             CheckResult res = _service.CheckCode(_validEic);
-            Assert.AreEqual("EIC code is ok.", res.Description);
+            Assert.AreEqual(CheckResultCode.EicOk, res.ResultCode);
         }
 
         [TestMethod]
         public void TestInvalidPrefix() {
             //TODO: validate, that EIC really needs to start with the 27 (in docs example there was EIC starting with '11')
             CheckResult res = _service.CheckCode(_invalidPrefix);
-            Assert.AreEqual("Code is not ok, EAN/EIC not recognized (code should start with 85 or 27)", res.Description);
+            Assert.AreEqual(CheckResultCode.CodePrefixInvalid, res.ResultCode);
         }
 
         [TestMethod]
         public void TestTooLongEanLength() {
             CheckResult res = _service.CheckCode(_tooLongEan);
-            Assert.AreEqual("EAN code has to have length of 18 characters.", res.Description);
+            Assert.AreEqual(CheckResultCode.EanInvalidLength, res.ResultCode);
         }
 
         [TestMethod]
         public void TestTooShortEanLength() {
             CheckResult res = _service.CheckCode(_tooShortEan);
-            Assert.AreEqual("EAN code has to have length of 18 characters.", res.Description);
+            Assert.AreEqual(CheckResultCode.EanInvalidLength, res.ResultCode);
         }
 
         [TestMethod]
         public void TestTooLongEicLength() {
             CheckResult res = _service.CheckCode(_tooLongEic);
-            Assert.AreEqual("EIC code has to have length of 16 characters.", res.Description);
+            Assert.AreEqual(CheckResultCode.EicInvalidLength, res.ResultCode);
         }
 
         [TestMethod]
         public void TestTooShortEicLength() {
             CheckResult res = _service.CheckCode(_tooShortEic);
-            Assert.AreEqual("EIC code has to have length of 16 characters.", res.Description);
+            Assert.AreEqual(CheckResultCode.EicInvalidLength, res.ResultCode);
         }
 
         [TestMethod]
         public void TestEmptyCode() {
             CheckResult res = _service.CheckCode(new EanEicCode(""));
-            Assert.AreEqual("No code supplied.", res.Description);
+            Assert.AreEqual(CheckResultCode.NoCodeSupplied, res.ResultCode);
         }
 
         [TestMethod]
         public void TestNullCode() {
             CheckResult res = _service.CheckCode(new EanEicCode(null));
-            Assert.AreEqual("No code supplied.", res.Description);
+            Assert.AreEqual(CheckResultCode.NoCodeSupplied, res.ResultCode);
         }
 
         [TestMethod]
         public void TestNonDigitCharacterEan() {
             CheckResult res = _service.CheckCode(_nonDigitEan);
-            Assert.AreEqual("EAN code is invalid. On the position 4 expecting a digit and got a 'x' character.", res.Description);
+            Assert.AreEqual(CheckResultCode.EanInvalidCharacter, res.ResultCode);
         }
 
         [TestMethod]
         public void TestInvalidCharacterEic() {
             CheckResult res = _service.CheckCode(_invalidCharacterEic);
-            Assert.AreEqual("Invalid character in EIC code [" + _invalidCharacterEic.Code + "]. Only 0-9, A-Z and '-' are valid characters.", res.Description);
+            Assert.AreEqual(CheckResultCode.EicInvalidCharacter, res.ResultCode);
         }
 
         [TestMethod]
         public void TestInvalidSumcheckEan() {
             CheckResult res = _service.CheckCode(_invalidSumcheckEan);
-            Assert.AreEqual("EAN code is invalid. The checksum is not correct.", res.Description);
+            Assert.AreEqual(CheckResultCode.EanInvalidCheckCharacter, res.ResultCode);
         }
     
         [TestMethod]
         public void TestInvalidSumcheckEic() {
             CheckResult res = _service.CheckCode(_invalidSumcheckEic);
-            Assert.AreEqual("EIC code is invalid. The checksum is not correct.", res.Description);
+            Assert.AreEqual(CheckResultCode.EicInvalidCheckCharacter, res.ResultCode);
         }
     }
 }
