@@ -7,7 +7,7 @@ namespace ean_eic_checker_service.Services {
     public class EanEicCheckService {
         public CheckResult CheckCode(EanEicCode code)
         {
-            if (code.Code == null)
+            if (string.IsNullOrEmpty(code.Code))
             {
                 return new CheckResult { Description = "No code supplied." };
             }
@@ -27,7 +27,7 @@ namespace ean_eic_checker_service.Services {
                     int digit = code.Code[i] - '0';
                     if (digit < 0 || digit > 9)
                     {
-                        return new CheckResult{Description ="EAN code is invalid. On the position " + i + " expecting a digit and got a '" + code.Code[i] + "' character."};
+                        return new CheckResult{Description ="EAN code is invalid. On the position " + (i+1) + " expecting a digit and got a '" + code.Code[i] + "' character."};
                     }
                     if (i % 2 == 0)
                     {
@@ -56,10 +56,6 @@ namespace ean_eic_checker_service.Services {
                     return new CheckResult { Description = "EIC code has to have length of 16 characters." };
                 }
 
-                if (code.Code.Length != 16) {
-                    return new CheckResult { Description = "EIC code has to have length of 18 characters." };
-                }
-
                 // EIC check character computation algorithm from page 32-33 from the https://www.entsoe.eu/Documents/EDI/Library/2015-0612_451-n%20EICCode_Data_exchange_implementation_guide_final.pdf
                 IEnumerable<int> numericEncodingOfEic;
                 try {
@@ -82,7 +78,7 @@ namespace ean_eic_checker_service.Services {
                 char checkChar = encodeIntToChar(modulo37);
 
                 if (checkChar == code.Code.Last()) {
-                    return new CheckResult { Description = "EAN code is ok." };
+                    return new CheckResult { Description = "EIC code is ok." };
                 }
                 return new CheckResult { Description = "EIC code is invalid. The checksum is not correct." };
             }

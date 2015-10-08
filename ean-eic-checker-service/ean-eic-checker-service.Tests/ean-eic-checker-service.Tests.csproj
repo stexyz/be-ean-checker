@@ -114,7 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
+    <Compile Include="Controllers\EanEicCheckControllerTest.cs" />
+    <Compile Include="EanEicCheckServiceUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

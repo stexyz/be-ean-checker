@@ -10,7 +10,7 @@ namespace ean_eic_checker_service.Tests.Controllers {
         public void Post(EanEicCode code)
         {
             EanEicCheckController controller = new EanEicCheckController();
-            CheckResult res = controller.Post(new EanEicCode {Code = ""});
+            CheckResult res = controller.Post(new EanEicCode (""));
             Assert.AreEqual("", res.Description);
         }
     }
