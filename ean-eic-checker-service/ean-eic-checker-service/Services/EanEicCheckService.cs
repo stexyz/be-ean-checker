@@ -7,7 +7,7 @@ namespace ean_eic_checker_service.Services {
     public class EanEicCheckService {
         public CheckResult CheckCode(EanEicCode code)
         {
-            if (string.IsNullOrEmpty(code.Code))
+            if (code == null || string.IsNullOrEmpty(code.Code))
             {
                 return new CheckResult(CheckResultCode.NoCodeSupplied);
             }

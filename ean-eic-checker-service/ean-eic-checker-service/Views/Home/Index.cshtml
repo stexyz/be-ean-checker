@@ -10,4 +10,30 @@
             </p>
         </div>
     </section>
+    <section class="content-wrapper main-content clear-fix">
+
+        <form id="validateEanEicForm" method="post">
+            <h3>Validate EAN/EIC Code</h3>
+            <p>
+                <label for="code">EAN/EIC code:</label>
+                <input type="text" name="code" />
+            </p>
+            <input type="button" id="validateCodeButton" value="Validate" />
+        </form>
+        <ul id="contacts"></ul>
+    </section>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $('#validateCodeButton').click(function () {
+            $.post("api/EanEicCheck",
+                $("#validateEanEicForm").serialize(),
+                function (value) {
+                    $('#contacts').append('<li>' + value.Description + '</li>');
+                },
+                "json"
+            );
+        });
+    </script>
+}
