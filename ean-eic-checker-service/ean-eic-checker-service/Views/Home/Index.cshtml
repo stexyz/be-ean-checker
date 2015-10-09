@@ -2,7 +2,6 @@
     <section class="featured">
         <div class="content-wrapper">
             <hgroup class="title">
-                <h1>Bohemia Energy</h1>
                 <h2>EAN/EIC Validation Service.</h2>
             </hgroup>
             <p>
@@ -16,24 +15,29 @@
             <h3>Validate EAN/EIC Code</h3>
             <p>
                 <label for="code">EAN/EIC code:</label>
-                <input type="text" name="code" />
+                <input type="text" name="code" id="codeInputId"/>
             </p>
             <input type="button" id="validateCodeButton" value="Validate" />
         </form>
-        <ul id="contacts"></ul>
+        <label for="result">Validation result:</label>
+        <p id="result"></p>
     </section>
 </div>
 
 @section scripts{
     <script type="text/javascript">
         $('#validateCodeButton').click(function () {
-            $.post("api/EanEicCheck",
-                $("#validateEanEicForm").serialize(),
-                function (value) {
-                    $('#contacts').append('<li>' + value.Description + '</li>');
-                },
-                "json"
-            );
+            $.ajax({
+                type: "POST",
+                url: 'api/EanEicCheck',
+                dataType: 'json',
+                contentType: 'application/json',
+                async: false,
+                data: JSON.stringify({ code: $("#codeInputId").val() }),
+                success: function (value) {
+                    $('#result').text(value.Description);
+                }
+            });
         });
     </script>
 }
