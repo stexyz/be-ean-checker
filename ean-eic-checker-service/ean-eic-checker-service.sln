@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ean-eic-checker-service", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ean-eic-checker-service.Tests", "ean-eic-checker-service.Tests\ean-eic-checker-service.Tests.csproj", "{A15215FC-FF8B-4369-9F54-D65A594D21A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndToEndTests", "EndToEndTests\EndToEndTests.csproj", "{80EC365B-A203-4C43-A6FE-6A7AE0BC95B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A15215FC-FF8B-4369-9F54-D65A594D21A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80EC365B-A203-4C43-A6FE-6A7AE0BC95B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80EC365B-A203-4C43-A6FE-6A7AE0BC95B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80EC365B-A203-4C43-A6FE-6A7AE0BC95B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80EC365B-A203-4C43-A6FE-6A7AE0BC95B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

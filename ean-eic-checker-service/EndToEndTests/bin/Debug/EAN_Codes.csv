@@ -1,0 +1,7 @@
+859182400123456789;EanOk
+X9ZG600Z0424987D;CodePrefixInvalid
+859182400123456789654465;EanInvalidLength
+859182400129;EanInvalidLength
+;NoCodeSupplied
+859x82D00&*(4567?¢;EanInvalidCharacter
+859182400123456784;EanInvalidCheckCharacter

@@ -2,6 +2,9 @@
 
 namespace ean_eic_checker_service.Models {
     public class CheckResult {
+        //For serialization only
+        public CheckResult(){}
+
         public CheckResult(CheckResultCode resultCode)
         {
             ResultCode = resultCode;

@@ -167,6 +167,4 @@ namespace ean_eic_checker_service.Services {
 
         private class InvalidCharacterInEic : Exception{}
     }
-    //TODO: deploy the jQuery front-end
-    //TODO: deploy both REST and jQuery to Azure
 }
