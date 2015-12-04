@@ -55,7 +55,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="E2EPositiveEanTest.cs" />
     <Compile Include="HttpClient\EanEicCheckerHttpClient.cs" />
     <Compile Include="HttpClient\IEanEicCheckerHttpClient.cs" />
     <Compile Include="EanE2ETest.cs" />
