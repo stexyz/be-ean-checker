@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\lib\nunit\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
@@ -52,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="E2EPositiveEanTest.cs" />
     <Compile Include="HttpClient\EanEicCheckerHttpClient.cs" />
     <Compile Include="HttpClient\IEanEicCheckerHttpClient.cs" />
     <Compile Include="EanE2ETest.cs" />
