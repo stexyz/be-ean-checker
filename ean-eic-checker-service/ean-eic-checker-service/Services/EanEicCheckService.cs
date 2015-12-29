@@ -160,8 +160,23 @@ namespace ean_eic_checker_service.Services {
         /// <summary>
         /// Excel formula CEILING(val, sig)
         /// </summary>
-        private static int Ceiling(int value, int significance)
+        public static int Ceiling(int value, int significance)
         {
+            if (value < 0 || significance < 0)
+            {
+                throw new ArgumentException("Doesn't support negative parameters.");
+            }
+
+            if (significance == 0 || value == 0)
+            {
+                return 0;
+            }
+
+            if (value%significance == 0)
+            {
+                return value;
+            }
+
             return value + significance - value % significance;
         }
 

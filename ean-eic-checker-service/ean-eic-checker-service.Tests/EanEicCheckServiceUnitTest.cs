@@ -1,7 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using ean_eic_checker_service.Models;
 using ean_eic_checker_service.Services;
 using Assert = NUnit.Framework.Assert;
+using System.IO;
 
 namespace ean_eic_checker_service.Tests {
     [TestFixture]
@@ -108,6 +110,33 @@ namespace ean_eic_checker_service.Tests {
         public void TestInvalidSumcheckEic() {
             CheckResult res = _service.CheckCode(_invalidSumcheckEic);
             Assert.AreEqual(CheckResultCode.EicInvalidCheckCharacter, res.ResultCode);
+        }
+
+        [Test]
+        public void TestCeiling()
+        {
+            Assert.AreEqual(170, EanEicCheckService.Ceiling(170, 10));
+            Assert.AreEqual(0, EanEicCheckService.Ceiling(170, 0));
+            Assert.AreEqual(0, EanEicCheckService.Ceiling(0, 10));
+            Assert.AreEqual(10, EanEicCheckService.Ceiling(1, 10));
+            Assert.AreEqual(10, EanEicCheckService.Ceiling(10, 10));
+            Assert.AreEqual(20, EanEicCheckService.Ceiling(11, 10));
+        }
+
+        private const string SimpleTestPath = "EAN_Codes.csv";
+        [Test]
+        public void TestEanCodes() {
+            using (StreamReader sr = new StreamReader(SimpleTestPath)) {
+                string currentLine;
+                // currentLine will be null when the StreamReader reaches the end of file
+                while ((currentLine = sr.ReadLine()) != null) {
+                    EanEicCode code = new EanEicCode(currentLine.Split(";".ToCharArray())[0]);
+                    CheckResultCode expectedResult = (CheckResultCode)Enum.Parse(typeof(CheckResultCode), currentLine.Split(";".ToCharArray())[1]);
+
+                    CheckResult res = _service.CheckCode(code);
+                    Assert.AreEqual(res.ResultCode, expectedResult);
+                }
+            }
         }
     }
 }
